@@ -20,7 +20,7 @@ export const ListTask = () => {
     const activeBtn = flag => flag ? 'primary' : 'default'
     return (
         <div className={'root'}>
-            {taskList.map((item, index) => <ListRow task={item} key={index} index={index} />)}
+            {taskList.map((item) => <ListRow task={item} key={item.id} />)}
             {taskList.length ? null : <Typography> No Data Found </Typography>}
             <Grid container spacing={3} className={'list-grid'}>
                 <Grid item xs={1}>

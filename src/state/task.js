@@ -16,10 +16,10 @@ const reducer = (state = initialState, action) => {
     case ADD_TASK:
       return [...state, action.payload]
     case DELETE_TASK:
-      return state.filter((item, index) => action.payload !== index)
+      return state.filter(({ id }) => action.id !== id)
     case COMPLETE_TASK:
-      return state.map((item, index) => (
-        action.payload === index ? { ...item, status: statusTypes.completed } : item
+      return state.map((item) => (
+        action.id === item.id ? { ...item, status: statusTypes.completed } : item
       ))
     default:
       return state
@@ -30,17 +30,18 @@ export const addTask = taskName => ({
   type: ADD_TASK,
   payload: {
     taskName,
-    status: statusTypes.active
+    status: statusTypes.active,
+    id: (new Date()).getTime()
   }
 })
-export const deleteTask = index => ({
+export const deleteTask = id => ({
   type: DELETE_TASK,
-  payload: index
+  id
 })
 
-export const completeTask = index => ({
+export const completeTask = id => ({
   type: COMPLETE_TASK,
-  payload: index
+  id
 })
 
 export default reducer
